@@ -1,28 +1,26 @@
-const text = document.querySelector("h1");
-const charecters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+const h1 = document.querySelector("h1");
+const originalText = h1.innerText;   
+const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-let interation = 0;
-let backup = text.innerText;  
+let iteration = 0;
+
 function randomText() {
+  const str = originalText
+    .split("")
+    .map((char, index) => {
+      if (index < iteration) {
+        return char;   
+      }
 
-    const str = backup.split("").map((char, index) => {
+      return characters[Math.floor(Math.random() * characters.length)];
+    })
+    .join("");
 
-        if (index < interation) {
-            return char;          
-        }
-
-        return charecters[
-            Math.floor(Math.random() * charecters.length)
-        ];
-
-    }).join("");
-
-    text.innerText = str;
-    interation += 0.15;
+  h1.innerText = str;
+  iteration += 0.15;
 }
 
-text.addEventListener("mouseenter", function () {
-    backup = text.innerText;  
-    interation = 0;
-    setInterval(randomText, 20);
+h1.addEventListener("mouseenter", function () {
+  iteration = 0;
+  setInterval(randomText, 30);
 });
